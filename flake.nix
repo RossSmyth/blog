@@ -22,6 +22,9 @@
       inherit (gitignore.lib) gitignoreSource;
     in {
       formatter = pkgs.alejandra;
+      devShells.default = pkgs.mkShell {
+        packages = with pkgs; [marksman vale-ls vale];
+      };
 
       packages.default = pkgs.stdenvNoCC.mkDerivation {
         src = gitignoreSource ./.;
