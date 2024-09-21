@@ -28,15 +28,34 @@
 
       packages.default = pkgs.stdenvNoCC.mkDerivation {
         src = gitignoreSource ./.;
+        strict = true;
         pname = "blog";
+        doCheck = false;
         version = "none";
-        buildInputs = with pkgs; [mdbook];
+        nativeBuildInputs = with pkgs; [mdbook];
         buildPhase = ''
           mdbook build
         '';
         installPhase = ''
           mv book $out
         '';
+      };
+
+      checks = {
+        grammar = pkgs.stdenvNoCC.mkDerivation {
+          name = "grammar-check";
+          strict = true;
+          dontBuild = true;
+          src = gitignoreSource ./.;
+          doCheck = true;
+          nativeBuildInputs = with pkgs; [(vale.withStyles (s: [s.write-good]))];
+          checkPhase = ''
+            vale **/*.md
+          '';
+          installPhase = ''
+            mkdir $out
+          '';
+        };
       };
     });
 }
