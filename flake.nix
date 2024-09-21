@@ -8,6 +8,11 @@
       url = "github:hercules-ci/gitignore.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    treefmt = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -15,13 +20,22 @@
     nixpkgs,
     flake-utils,
     gitignore,
+    treefmt,
   }:
     flake-utils.lib.eachDefaultSystem (system: let
       pkgs = nixpkgs.legacyPackages.${system};
 
+      treefmtEval = treefmt.lib.evalModule pkgs {
+        projectRootFile = "flake.nix";
+        programs.toml-sort.enable = true;
+        programs.mdformat.enable = true;
+        programs.alejandra.enable = true;
+        programs.actionlint.enable = true;
+      };
+
       inherit (gitignore.lib) gitignoreSource;
     in {
-      formatter = pkgs.alejandra;
+      formatter = treefmtEval.config.build.wrapper;
       devShells.default = pkgs.mkShell {
         packages = with pkgs; [marksman vale-ls (vale.withStyles (s: [s.write-good]))];
       };
@@ -56,6 +70,8 @@
             mkdir $out
           '';
         };
+
+        formatting = treefmtEval.config.build.check self;
       };
     });
 }
