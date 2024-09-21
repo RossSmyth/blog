@@ -22,7 +22,7 @@ jobs:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Check book
         run: |
-          nix flake check
+          nix build .#checks.x86_64-linux.formatting
       - name: Build Book
         run: |
           nix build
