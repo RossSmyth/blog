@@ -20,6 +20,9 @@ jobs:
         uses: cachix/install-nix-action@v27
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Check book
+        run: |
+          nix flake check
       - name: Build Book
         run: |
           nix build
