@@ -154,4 +154,4 @@ In my world there would be no such thing as cross-compilation. Or more accuratel
 Each GCC build is only for one target. The solution is to stop using GCC and use Clang like a sane person.
 
 Ok that's mainly it. All the other problems are feeding the compilers the correct build-time dependencies for a target. Like Windows needs special [pthreads](https://github.com/NixOS/nixpkgs/issues/156343) handling and OpenSSL handling.
-Embedded targets sometimes need special stdlibs like [Newlib](https://github.com/NixOS/nixpkgs/issues/188817).
+Embedded targets sometimes need special stdlibs like [Newlib](https://github.com/NixOS/nixpkgs/issues/188817), plus you actually need to pass the target kebab to the compiler and there is no standard on how to form one.
