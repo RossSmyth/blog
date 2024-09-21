@@ -46,7 +46,7 @@
         pname = "blog";
         doCheck = true;
         version = "none";
-        nativeBuildInputs = with pkgs; [mdbook];
+        nativeBuildInputs = with pkgs; [mdbook mdbook-pagetoc];
         buildPhase = ''
           mdbook build
         '';
