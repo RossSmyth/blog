@@ -44,7 +44,7 @@
         src = gitignoreSource ./.;
         strict = true;
         pname = "blog";
-        doCheck = false;
+        doCheck = true;
         version = "none";
         nativeBuildInputs = with pkgs; [mdbook];
         buildPhase = ''
