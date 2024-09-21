@@ -23,7 +23,7 @@
     in {
       formatter = pkgs.alejandra;
       devShells.default = pkgs.mkShell {
-        packages = with pkgs; [marksman vale-ls vale];
+        packages = with pkgs; [marksman vale-ls (vale.withStyles (s: [s.write-good]))];
       };
 
       packages.default = pkgs.stdenvNoCC.mkDerivation {
