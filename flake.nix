@@ -1,13 +1,7 @@
 {
   description = "My blog";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
-
-    gitignore = {
-      url = "github:hercules-ci/gitignore.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixpkgs.url = "https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz";
 
     treefmt = {
       url = "github:numtide/treefmt-nix";
@@ -15,38 +9,61 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    flake-utils,
-    gitignore,
-    treefmt,
-  }:
-    flake-utils.lib.eachDefaultSystem (system: let
-      pkgs = nixpkgs.legacyPackages.${system};
+  outputs =
+    {
+      self,
+      nixpkgs,
+      treefmt,
+    }:
+    let
+      system = "x86_64-linux";
+
+      pkgs = import nixpkgs {
+        inherit system;
+      };
 
       treefmtEval = treefmt.lib.evalModule pkgs {
         projectRootFile = "flake.nix";
         programs.toml-sort.enable = true;
         programs.mdformat.enable = true;
-        programs.alejandra.enable = true;
+        programs.nixfmt.enable = true;
         programs.actionlint.enable = true;
       };
 
-      inherit (gitignore.lib) gitignoreSource;
-    in {
-      formatter = treefmtEval.config.build.wrapper;
-      devShells.default = pkgs.mkShell {
-        packages = with pkgs; [marksman vale-ls (vale.withStyles (s: [s.write-good]))];
+      fs = pkgs.lib.fileset;
+    in
+    {
+      formatter.${system} = treefmtEval.config.build.wrapper;
+
+      devShells.${system}.default = pkgs.mkShell {
+        packages = with pkgs; [
+          marksman
+          vale-ls
+          (vale.withStyles (s: [ s.write-good ]))
+        ];
       };
 
-      packages.default = pkgs.stdenvNoCC.mkDerivation {
-        src = gitignoreSource ./.;
-        strict = true;
+      packages.${system}.default = pkgs.stdenvNoCC.mkDerivation {
         pname = "blog";
-        doCheck = true;
         version = "none";
-        nativeBuildInputs = with pkgs; [mdbook mdbook-pagetoc];
+
+        src = fs.toSource {
+          root = ./.;
+          fileset = fs.difference ./. (
+            fs.unions [
+              ./.gitignore
+              ./flake.nix
+              ./flake.lock
+              ./.vale.ini
+            ]
+          );
+        };
+
+        strictDeps = true;
+        nativeBuildInputs = with pkgs; [
+          mdbook
+          mdbook-pagetoc
+        ];
         buildPhase = ''
           mdbook build
         '';
@@ -55,23 +72,36 @@
         '';
       };
 
-      checks = {
+      checks.${system} = {
         grammar = pkgs.stdenvNoCC.mkDerivation {
           name = "grammar-check";
-          strict = true;
+
+          src = fs.toSource {
+            root = ./.;
+            fileset = fs.difference ./. (
+              fs.unions [
+                ./.gitignore
+                ./flake.nix
+                ./flake.lock
+              ]
+            );
+          };
+
+          strictDeps = true;
           dontBuild = true;
-          src = gitignoreSource ./.;
           doCheck = true;
-          nativeBuildInputs = with pkgs; [(vale.withStyles (s: [s.write-good]))];
+
+          nativeCheckInputs = with pkgs; [ (vale.withStyles (s: [ s.write-good ])) ];
+
           checkPhase = ''
             vale **/*.md
           '';
           installPhase = ''
-            mkdir $out
+            touch $out
           '';
         };
 
         formatting = treefmtEval.config.build.check self;
       };
-    });
+    };
 }
