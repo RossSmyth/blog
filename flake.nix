@@ -25,7 +25,10 @@
       treefmtEval = treefmt.lib.evalModule pkgs {
         projectRootFile = "flake.nix";
         programs.toml-sort.enable = true;
-        programs.mdformat.enable = true;
+        programs.mdformat = {
+          enable = true;
+          settings.wrap = 80;
+        };
         programs.nixfmt.enable = true;
         programs.actionlint.enable = true;
       };
