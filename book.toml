@@ -3,7 +3,7 @@ authors = ["Ross Smyth"]
 language = "en"
 multilingual = false
 src = "src"
-title = "blog"
+title = "Semi-coherent ramblings of some guy"
 
 [output.html]
 additional-css = ["theme/pagetoc.css"]

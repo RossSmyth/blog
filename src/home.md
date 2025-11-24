@@ -1,5 +1,7 @@
 # Me
 
+The semi-coherent ramblings of a, primarily, Rust, Nix, and C developer.
+
 I am an embedded developer who works at a company that makes motor drives. I
 spend about 60%-70% of my time in C, 25% of my time in Rust, and the rest in Nix
 these days.
