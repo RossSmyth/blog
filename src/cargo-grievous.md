@@ -1,4 +1,4 @@
-# Cargo Grievances
+# Cargo Grievances: Dang dependencies are hard
 
 Rust's Cargo is a pretty neat tool. It unifies building Rust projects to one
 tool, meaning that most projects written in Rust require a single command to
