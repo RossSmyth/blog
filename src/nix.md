@@ -1,6 +1,6 @@
 # Using Nix
 
-Alright my second blog post every. I think it is customary at this point to make
+Alright my second blog post ever. I think it is customary at this point to make
 an article about Nix.
 
 Last month I started using Nix. Within a couple weeks I have completely embraced
