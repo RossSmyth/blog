@@ -69,6 +69,7 @@ Nixpkgs is an exercise of endurance. How long can you wait for a review, how
 long can you beg for reviews, how many review cycles can you go though, how many
 bike sheds can you paint? It is exhausting. I have several Nixpkgs projects I'm
 working on. But none of them have even made it past the first PR yet.
+
 [I recently dropped myself from the majority of packages I have been maintaining](https://github.com/NixOS/nixpkgs/pull/526206)
 Not because I wanted to, but because I can't even get eyes on the packages that
 I really want to work on, let alone the stragglers. This post is basically me
