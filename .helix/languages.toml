@@ -1,0 +1,4 @@
+[[language]]
+name = "markdown"
+file-types = ["md"]
+language-servers = ["vale-ls"]
