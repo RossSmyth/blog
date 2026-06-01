@@ -1,0 +1,23 @@
+{
+  "pins": {
+    "nixpkgs": {
+      "type": "Tarball",
+      "url": "https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz",
+      "hash": "sha256-NpH8iEQ5JHv/BtUuzTEXUMDxPLetCDzIv4OxL8H7Kps="
+    },
+    "treefmt": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "numtide",
+        "repo": "treefmt-nix"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "db947814a175b7ca6ded66e21383d938df01c227",
+      "url": "https://github.com/numtide/treefmt-nix/archive/db947814a175b7ca6ded66e21383d938df01c227.tar.gz",
+      "hash": "sha256-eynAfOmbmxJnkp7YewvCEbShNnnYJ9gLLqkzsYtBPeM="
+    }
+  },
+  "version": 7
+}
