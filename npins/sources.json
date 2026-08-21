@@ -1,9 +1,11 @@
 {
   "pins": {
     "nixpkgs": {
-      "type": "Tarball",
-      "url": "https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz",
-      "hash": "sha256-NpH8iEQ5JHv/BtUuzTEXUMDxPLetCDzIv4OxL8H7Kps="
+      "type": "Channel",
+      "name": "nixos-unstable",
+      "artifact": "nixexprs.tar.xz",
+      "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1058091.ffb3c9b700e7/nixexprs.tar.xz",
+      "hash": "sha256-M5/r2v++FjVhdsxXYMb4BDJ5YLAdCWFt3aZotcshocA="
     },
     "treefmt": {
       "type": "Git",
@@ -19,5 +21,5 @@
       "hash": "sha256-eynAfOmbmxJnkp7YewvCEbShNnnYJ9gLLqkzsYtBPeM="
     }
   },
-  "version": 7
+  "version": 8
 }
