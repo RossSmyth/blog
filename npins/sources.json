@@ -1,9 +1,10 @@
 {
   "pins": {
     "nixpkgs": {
-      "type": "Tarball",
+      "type": "Url",
       "url": "https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz",
-      "hash": "sha256-NpH8iEQ5JHv/BtUuzTEXUMDxPLetCDzIv4OxL8H7Kps="
+      "unpack": true,
+      "hash": "sha256-LOv16TsMYV2/8BUYnhSxHkOASe7es2ORbqMeLlZJ8Hc="
     },
     "treefmt": {
       "type": "Git",
@@ -19,5 +20,5 @@
       "hash": "sha256-eynAfOmbmxJnkp7YewvCEbShNnnYJ9gLLqkzsYtBPeM="
     }
   },
-  "version": 7
+  "version": 8
 }
