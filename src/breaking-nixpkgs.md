@@ -6,7 +6,8 @@ funny, a
 [PR I created was merged](https://github.com/NixOS/nixpkgs/pull/537108/changes#diff-2dad79533e4c2ea67623e4c28dd4edf1ae143fcaed75f41cc4bb714f40eba18f)
 that directly broke somewhere around 1000 packages in Nixpkgs, and transitively
 broke most of Nixpkgs. We were able to fix most of the big ones in the testing
-branch so it wasn't too bad but the tail of lesser-used packages is long.
+branch so it wasn't too bad once it hit the rolling release, but the tail of
+lesser-used packages is long.
 
 ## Why break crates?
 
@@ -57,17 +58,23 @@ But how do you actually tell the crates to use `pkg-config`?
 
 That is the question, and the answer is "read the crate source to figure it
 out." There is no standard way. Some crates will probe via `pkg-config`, and
-then silently fallback to building from source. Some allow the user to force
-linking via `pkg-config` with the build failing if the probe fails. Some
-unconditionally link to the native libraries.
+then silently fallback to building from source. Another ad-hoc way is with crate
+features; they have a feature that toggles between vendored linking & system
+linking. Some allow the user to force linking via `pkg-config` with the build
+failing if the probe fails. Some unconditionally link to the native libraries.
 
 In the first case, silently falling back, us distro maintainers must proactively
 check to see if there are any crates that do this. This is a bit annoying as it
 is not always clear. In the second case, forcing the build the fail, this is
 good except there isn't a standard API. We must check each crate anyways to see
-what environment variable to set as they are all different. In the final case,
-there is not much we can do. Build-script overrides exist, but they are quite
-fragile and do not work in many cases.
+what environment variable to set as they are all different. The same story can
+be said for features. They are all ad-hoc and different, and we must go and dive
+in to find them, then set the feature in the crate. These ad-hoc ones generally
+just result in using the vendored source, since most casual maintainers are
+either unaware of these vendored sources, or do not think the hassle is worth
+it, resulting in end-users running outdated software. In the final case, there
+is not much we can do. Build-script overrides exist, but they are quite fragile
+and do not work in many cases.
 
 ## Making lives easier
 
@@ -84,3 +91,6 @@ This crate previously unconditionally built from source. Now it probes via
 `system-deps` and uses that if the probe succeeds. Currently `system-deps`
 requires the end-user to assert that they'd like to fallback to building. This
 works around that by falling back if an error is returned.
+
+In the end, we just want our users to be protected, and I hope crate authors do
+too! With a bit of work, we can improve the security of our users together.
