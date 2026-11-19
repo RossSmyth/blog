@@ -1,4 +1,4 @@
-# Breaking Nixpkgs for Security
+# Breaking 1000 Rust crates in Nixpkgs for security (and what you can do)
 
 Hello, if you know me then you know that I am a distro maintainer for
 NixOS/Nixpkgs, and that I am a Rust programmer. Recently I did something quite
