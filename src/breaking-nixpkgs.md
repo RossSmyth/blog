@@ -4,10 +4,11 @@ Hello, if you know me then you know that I am a distro maintainer for
 NixOS/Nixpkgs, and that I am a Rust programmer. Recently I did something quite
 funny, a
 [PR I created was merged](https://github.com/NixOS/nixpkgs/pull/537108/changes#diff-2dad79533e4c2ea67623e4c28dd4edf1ae143fcaed75f41cc4bb714f40eba18f)
-that directly broke somewhere around 1000 packages in Nixpkgs, and transitively
-broke most of Nixpkgs. We were able to fix most of the big ones in the testing
-branch so it wasn't too bad once it hit the rolling release, but the tail of
-lesser-used packages is long.
+that directly broke somewhere around
+[500-1000 packages in Nixpkgs](https://github.com/NixOS/nixpkgs/pulls?q=is%3Apr+state%3Aclosed++in%3Atitle+fix+system+AND+created%3A%3E2026-11-07),
+and transitively broke most of Nixpkgs. We were able to fix most of the big ones
+in the testing branch so it wasn't too bad once it hit the rolling release, but
+the tail of lesser-used packages is long.
 
 ## Why break crates?
 
