@@ -83,7 +83,11 @@ How can crate authors improve this situation? Well I highly encourage you to use
 annoyances. The API is standard, and us distro maintainers can force libraries
 to be linked to the distro-provided one, and the crate authors' can provided
 fallbacks that build them from source. I highly encourage people to use this,
-rather than ad-hoc probing and per-crate environment variables.
+rather than ad-hoc probing and per-crate environment variables. If you are
+worried as a crate author about the effects of linking to a system library, I
+recommend constraining your versions properly and investigating if the native
+library ever breaks in minor versions. Most do not as they are designed for this
+purpose, and will be fine.
 
 You can see an example of switching to `system-deps`
 [here](https://github.com/bradlarsen/vectorscan-rs/pull/16/commits/47c0de1c541c795cc180e16c5b10b0c096e15895).
