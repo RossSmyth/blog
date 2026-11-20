@@ -99,4 +99,6 @@ around is doing something like what I have
 [here](https://github.com/bradlarsen/vectorscan-rs/pull/16/commits/47c0de1c541c795cc180e16c5b10b0c096e15895).
 
 In the end, we just want our users to be protected, and I hope crate authors do
-too! With a bit of work, we can improve the security of our users together.
+too! With a bit of work, we can improve the security of our users together. Big
+thanks to others who helped me in Nixpkgs, namely Whispers, K900, and Ethan
+Edwards.
