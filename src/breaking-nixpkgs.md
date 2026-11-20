@@ -90,12 +90,13 @@ recommend constraining your versions properly and investigating if the native
 library ever breaks in minor versions. Most do not as they are designed for this
 purpose, and will be fine.
 
-You can see an example of switching to `system-deps`
+You can see an example of
+[system-deps here](https://github.com/rust-av/dav1d-rs/blob/33f030de5c45016d5aefeca1f8fca2a74ab03273/dav1d-sys/build.rs#L74-L83).
+It probes via `system-deps` and uses that if the probe succeeds. Currently
+`system-deps` requires the end-user to assert that they'd like to fallback to
+building. This works around that by falling back if an error is returned. A work
+around is doing something like what I have
 [here](https://github.com/bradlarsen/vectorscan-rs/pull/16/commits/47c0de1c541c795cc180e16c5b10b0c096e15895).
-This crate previously unconditionally built from source. Now it probes via
-`system-deps` and uses that if the probe succeeds. Currently `system-deps`
-requires the end-user to assert that they'd like to fallback to building. This
-works around that by falling back if an error is returned.
 
 In the end, we just want our users to be protected, and I hope crate authors do
 too! With a bit of work, we can improve the security of our users together.
